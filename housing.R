@@ -15,7 +15,7 @@ hist(dat$INDUS) #spike at 18
 hist(dat$CHAS) #note, this is an dummy variable, indicator
 hist(dat$NOX)
 hist(dat$RM)
-hist(dat$AGE) #leftt skewed
+hist(dat$AGE) #left skewed
 hist(dat$DIS) #right skewed
 hist(dat$RAD) #double peaks around 3 and 24
 hist(dat$TAX) #peak around 680
@@ -34,11 +34,15 @@ hist((dat$CRIM)^0.4)
 hist((dat$CRIM)^0.5)
 hist(log(dat$CRIM)) #
 
-hist((dat$CRIM)^0.1)
-hist((dat$CRIM)^0.2)
-hist((dat$CRIM)^0.3)
-hist((dat$CRIM)^0.4)
-hist((dat$CRIM)^0.5)
-hist(log(dat$CRIM))
-hist(log10(dat$CRIM)) #
-hist(log2(dat$CRIM))
+plotVarTransformations<-function(df,colNum){
+  variable<-as.numeric(df[,colNum])
+  transformations<-cbind(sapply(seq(.1,.5,.1),function(i)variable^i),log(variable))
+  colnames(transformations)<-c(as.character(seq(0.1,0.5,0.1)),"log")
+  par(mfrow=c(2,3))
+  sapply(1:ncol(transformations),function(i)hist(transformations[,i],main=colnames(transformations)[i]))
+  par(mfrow=c(1,1))
+}
+
+plotVarTransformations(dat,2)   #ZN log
+plotVarTransformations(dat,3)
+plotVarTransformations(dat,7)
