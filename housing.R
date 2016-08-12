@@ -34,11 +34,23 @@ hist((dat$CRIM)^0.4)
 hist((dat$CRIM)^0.5)
 hist(log(dat$CRIM)) #
 
-hist((dat$CRIM)^0.1)
-hist((dat$CRIM)^0.2)
-hist((dat$CRIM)^0.3)
-hist((dat$CRIM)^0.4)
-hist((dat$CRIM)^0.5)
-hist(log(dat$CRIM))
-hist(log10(dat$CRIM)) #
-hist(log2(dat$CRIM))
+#Zone
+hist((dat$ZN)^0.1)
+hist((dat$ZN)^0.2)
+hist((dat$ZN)^0.3)
+hist((dat$ZN)^0.4)
+hist((dat$ZN)^0.5)
+hist(log(dat$ZN))
+hist(log10(dat$ZN))
+hist(log2(dat$ZN))
+
+varTransform = function(dataset, variable)
+{
+  par(mfrow=c(2,3))
+  #hist((dataset$variable)^0.1)
+  head(dataset$variable)
+  par(mfrow=c(1,1))
+}
+
+varTransform(dat, ZN)
+# problem with function. does not work
