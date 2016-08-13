@@ -25,24 +25,8 @@ hist(dat$LSTAT) #right skewed
 hist(dat$MEDV)
 
 
-#Crime
-par(mfrow=c(2,3))
-hist((dat$CRIM)^0.1)
-hist((dat$CRIM)^0.2)
-hist((dat$CRIM)^0.3)
-hist((dat$CRIM)^0.4)
-hist((dat$CRIM)^0.5)
-hist(log(dat$CRIM)) #
-
-plotVarTransformations<-function(df,colNum){
-  variable<-as.numeric(df[,colNum])
-  transformations<-cbind(sapply(seq(.1,.5,.1),function(i)variable^i),log(variable))
-  colnames(transformations)<-c(as.character(seq(0.1,0.5,0.1)),"log")
-  par(mfrow=c(2,3))
-  sapply(1:ncol(transformations),function(i)hist(transformations[,i],main=colnames(transformations)[i]))
-  par(mfrow=c(1,1))
-}
-
-plotVarTransformations(dat,2)   #ZN log
-plotVarTransformations(dat,3)
-plotVarTransformations(dat,7)
+#transforming variables using boxcox function
+library(MASS)
+l1 = boxcox(lm(dat$MEDV~dat$CRIM))
+l1$x[which.max(l1$y)]
+# lambda for CRIM is -0.1
